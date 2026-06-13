@@ -1,0 +1,24 @@
+#!/bin/sh /etc/rc.common
+# Auto-resize rootfs_data UBI volume to fill available space
+# Runs once on first boot after UBI partition expansion
+
+START=09
+STOP=99
+
+boot() {
+	local flag="/etc/.resize-rootfs_data-done"
+	[ -f "$flag" ] && return 0
+
+	local avail
+	avail=$(ubinfo /dev/ubi0 -a 2>/dev/null | awk '/Available/{print $3}')
+	[ -z "$avail" ] && return 1
+	[ "$avail" = "0" ] && { touch "$flag"; return 0; }
+
+	logger -t resize-rootfs_data "resizing rootfs_data by $avail bytes"
+	ubirsvol /dev/ubi0 -N rootfs_data -m && touch "$flag" && logger -t resize-rootfs_data "done"
+}
+
+# Also run in shutdown to mark done if needed
+shutdown() {
+	:
+}

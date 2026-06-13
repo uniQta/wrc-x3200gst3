@@ -1,0 +1,36 @@
+--- a/target/linux/mediatek/dts/mt7622-elecom-wrc-x3200gst3.dts
++++ b/target/linux/mediatek/dts/mt7622-elecom-wrc-x3200gst3.dts
+@@ -350,32 +350,9 @@
+ 
+ 			partition@8c0000 {
+ 				label = "ubi";
+-				reg = <0x8c0000 0x1300000>;
+-			};
+-
+-			partition@1bc0000 {
+-				label = "tm_pattern";
+-				reg = <0x1bc0000 0x500000>;
+-				read-only;
+-			};
+-
+-			partition@20c0000 {
+-				label = "tm_key";
+-				reg = <0x20c0000 0x100000>;
+-				read-only;
++				reg = <0x8c0000 0x6d00000>;
+ 			};
+ 
+-			partition@21c0000 {
+-				label = "user_data";
+-				reg = <0x21c0000 0xf00000>;
+-				read-only;
+-			};
+-
+-			partition@30c0000 {
+-				label = "reserved";
+-				reg = <0x30c0000 0x4f40000>;
+-				read-only;
+-			};
+ 		};
+ 	};
+ };
